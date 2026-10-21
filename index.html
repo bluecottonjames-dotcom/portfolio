@@ -528,6 +528,47 @@ dialog.tall{width:min(94vw,calc(68vh*9/16))}
   .nav-toggle{animation:breathe 3.6s ease-in-out infinite,breathe-ring 3.6s ease-out infinite}
   header.nav.open .nav-toggle,.nav-toggle:active{animation:none}
 }
+
+/* ===== hero background: video-editing workspace artwork ===== */
+.hero-bg .hb-ws{position:absolute;inset:0;top:0;width:100%;height:100%;object-fit:cover;object-position:center;animation:none}
+.hero-bg::after{display:block;content:"";position:absolute;inset:0;pointer-events:none;
+  background:
+    linear-gradient(to bottom,rgba(246,246,244,.96) 0,rgba(246,246,244,.80) 64px,rgba(246,246,244,0) 150px),
+    linear-gradient(90deg,rgba(246,246,244,.94) 0,rgba(246,246,244,.86) 38%,rgba(246,246,244,.30) 70%,rgba(246,246,244,.05) 100%),
+    linear-gradient(to top,rgba(246,246,244,.92) 0,rgba(246,246,244,.55) 22%,rgba(246,246,244,0) 40%)}
+@media (max-width:760px){
+  .hero-bg .hb-ws{top:0;height:100%;object-position:62% center}
+  .hero-bg::after{background:linear-gradient(to bottom,rgba(246,246,244,.92) 0,rgba(246,246,244,.86) 55%,rgba(246,246,244,.45) 100%)}
+  .hero-bg .hb-ws{object-position:78% center}
+}
+
+/* ===== highlighted name and key details ===== */
+.hl{color:#1A2230;font-weight:700;padding:0 .18em;margin:0 -.18em;border-radius:3px;
+  background:linear-gradient(transparent 52%,rgba(47,91,255,.26) 52%) no-repeat left bottom/100% 100%}
+.hero .lead strong,.about-top strong{color:#1A2230;font-weight:600}
+.facts{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin:0 0 26px;padding:0}
+.facts li{display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:999px;background:rgba(255,255,255,.82);
+  border:1.5px solid #D5D8DF;font-weight:500;font-size:.92rem;color:#1A2230;box-shadow:0 4px 12px rgba(26,34,48,.06)}
+.facts li b{color:var(--playhead);font-weight:800}
+.facts .dot{flex:none}
+.hero p.lead{margin-bottom:18px}
+@keyframes hlgrow{from{background-size:0% 100%}to{background-size:100% 100%}}
+@media (prefers-reduced-motion:no-preference){
+  .hero .hl{background-size:0% 100%;animation:hlgrow .9s cubic-bezier(.2,.8,.2,1) .9s forwards}
+  .js .about-top .hl{background-size:0% 100%}
+  .js .about-top .in .hl,.js .about-top.in .hl{animation:hlgrow .9s cubic-bezier(.2,.8,.2,1) .3s forwards}
+}
+@media (max-width:760px){.facts li{font-size:.86rem}}
+
+/* key details: simple divider row (marker highlight on the name is kept) */
+.facts{gap:0;margin-bottom:28px}
+.facts li{background:none;border:0;box-shadow:none;border-radius:0;padding:0 18px;border-right:1.5px solid #C9CFD9;font-size:.95rem}
+.facts li:first-child{padding-left:0}
+.facts li:last-child{border-right:0;padding-right:0}
+@media (max-width:760px){
+  .facts{flex-direction:column;align-items:flex-start;gap:8px}
+  .facts li{padding:0;border-right:0;font-size:.95rem}
+}
 </style>
 </head>
 <body>
@@ -536,7 +577,7 @@ dialog.tall{width:min(94vw,calc(68vh*9/16))}
 <div class="wrap">
   <div class="top">
     <!-- Hero background: replace images/hero-banner.webp with your own (wide image, ~1920x1080). Delete the <img> to use the plain gradient. -->
-    <div class="hero-bg" aria-hidden="true"></div>
+    <div class="hero-bg" aria-hidden="true"><img class="hb-ws" src="images/hero-workspace.webp" alt="" onerror="this.remove()"></div>
   <header class="nav">
     <a class="logo" href="#top">Eric James Bustamante</a>
     <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Open menu"><span></span><span></span></button>
@@ -552,7 +593,12 @@ dialog.tall{width:min(94vw,calc(68vh*9/16))}
   <!-- HERO: move the pointer across it to scrub the playhead -->
   <div class="hero" id="top">
     <h1><span class="ln"><span>Video editor</span></span><span class="ln"><span>&amp; graphic</span></span><span class="ln"><span>designer</span></span></h1>
-    <p class="lead">I'm Eric James Bustamante. I edit short-form and long-form video, build motion graphics, and design the thumbnails, email campaigns and branded assets that go with them.</p>
+    <p class="lead">I'm <mark class="hl">Eric James Bustamante</mark>. I edit <strong>short-form</strong> and <strong>long-form video</strong>, build <strong>motion graphics</strong>, and design the <strong>thumbnails, email campaigns and branded assets</strong> that go with them.</p>
+    <ul class="facts" aria-label="Key details">
+      <li><b>5+ years</b> experience</li>
+      <li>TikTok · Reels · Shorts · YouTube</li>
+      <li><span class="dot" aria-hidden="true"></span>Open to video editing roles</li>
+    </ul>
     <div class="cta">
       <a class="btn light" href="#work">View my work <span aria-hidden="true">→</span></a>
       <a class="btn accent" href="#contact">Let's work together <span aria-hidden="true">→</span></a>
@@ -587,8 +633,8 @@ dialog.tall{width:min(94vw,calc(68vh*9/16))}
       <!-- Portrait: images/eric_portrait.webp -->
       <div class="portrait" aria-label="Portrait of Eric James Bustamante"><span aria-hidden="true">EJ</span><img src="images/eric_portrait.webp" alt="Eric James Bustamante" onload="this.previousElementSibling.style.display='none'" onerror="this.remove()"></div>
       <div>
-        <p>I'm Eric James Bustamante, a video editor with 5+ years of experience producing short-form and long-form content for brands, agencies and digital marketing campaigns. My graphic design background means I can handle the visuals around the video too.</p>
-        <p>I care about storytelling and pacing, and I edit for the platform it's going on: TikTok, Instagram Reels, YouTube Shorts and YouTube. I also design the thumbnails, email campaigns and brand assets that sit around the video, so everything looks like it belongs together.</p>
+        <p>I'm <mark class="hl">Eric James Bustamante</mark>, a <strong>video editor</strong> with <strong>5+ years of experience</strong> producing <strong>short-form and long-form content</strong> for brands, agencies and digital marketing campaigns. My <strong>graphic design</strong> background means I can handle the visuals around the video too.</p>
+        <p>I care about storytelling and pacing, and I edit for the platform it's going on: <strong>TikTok, Instagram Reels, YouTube Shorts and YouTube</strong>. I also design the thumbnails, email campaigns and brand assets that sit around the video, so everything looks like it belongs together.</p>
         <p>I work closely with marketing teams and stakeholders, and I'm used to managing several projects on tight deadlines.</p>
       </div>
     </div>
